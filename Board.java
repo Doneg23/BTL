@@ -1,14 +1,17 @@
-import java.util.ArrayList;
-
 public class Board {
     public static final int WIDTH = 16;
     public static final int HEIGHT = 9;
-    private ArrayList<Block> blocks = new ArrayList<>();
+    private Block[][] blocks = new Block[HEIGHT][WIDTH];
 
     /**
      * Constructor.
      */
     public Board() {
+        for (int i = 0; i < HEIGHT; i++) {
+            for (int j = 0; j < WIDTH; j++) {
+                blocks[i][j] = new Path(i, j);
+            }
+        }
     }
 
     public void addBlock(Block block) {
@@ -16,11 +19,11 @@ public class Board {
                 || !validate(block.getX(), block.getY())) {
             return;
         }
-        blocks.add(block);
+        blocks[block.getX()][block.getY()] = block;
     }
 
     public boolean validate(int x, int y) {
-        return x >= 1 && y >= 1 && x <= WIDTH && y <= HEIGHT;
+        return x >= 0 && y >= 0 && x < WIDTH && y < HEIGHT;
     }
 
     public void destroyAt(int x, int y) {
@@ -28,14 +31,10 @@ public class Board {
             return;
         }
         if (getAt(x, y).hashCode() == 2) {
-            Block block = new Path(x, y);
-            blocks.remove(getAt(x, y));
-            blocks.add(block);
+            blocks[x][y] = new Path(x, y);
         }
         if (getAt(x, y).hashCode() == 3) {
-            Block block = new Rock(x, y);
-            blocks.remove(getAt(x, y));
-            blocks.add(block);
+            blocks[x][y] = new Rock(x, y);
         }
     }
 
@@ -43,20 +42,24 @@ public class Board {
         if (!validate(x, y)) {
             return null;
         }
-        for (Block block : blocks) {
-            if (block.getX() == x
-                    && block.getY() == y) {
-                return block;
-            }
-        }
-        return null;
+        return blocks[x][y];
     }
 
-    public ArrayList<Block> getBlocks() {
+    public Block[][] getBlocks() {
         return blocks;
     }
 
-    public void setBlocks(ArrayList<Block> blocks) {
+    public void setBlocks(Block[][] blocks) {
         this.blocks = blocks;
+    }
+
+    public void printBoard() {
+        for (int i = 0; i < HEIGHT; i++) {
+            System.out.print("|");
+            for (int j = 0; j < WIDTH; j++) {
+                System.out.print(blocks[i][j].hashCode() + "\t|");
+            }
+            System.out.print("\n");
+        }
     }
 }
