@@ -14,6 +14,9 @@ public class Board {
         }
     }
 
+    /**
+     * Add block to board.
+     */
     public void addBlock(Block block) {
         if (getAt(block.getX(), block.getY()) != null
                 || !validate(block.getX(), block.getY())) {
@@ -22,12 +25,20 @@ public class Board {
         blocks[block.getX()][block.getY()] = block;
     }
 
+    /**
+     * Check valid coordinates.
+     * @return valid
+     */
     public boolean validate(int x, int y) {
         return x >= 0 && y >= 0 && x < WIDTH && y < HEIGHT;
     }
 
+    /**
+     * Destroy block at position.
+     */
     public void destroyAt(int x, int y) {
-        if (!validate(x, y) || !getAt(x, y).getIsDestructible()) {
+        if (!validate(x, y) || getAt(x, y) == null
+                || !getAt(x, y).getIsDestructible()) {
             return;
         }
         if (getAt(x, y).hashCode() == 2) {
@@ -38,6 +49,10 @@ public class Board {
         }
     }
 
+    /**
+     * Get block at position.
+     * @return block
+     */
     public Block getAt(int x, int y) {
         if (!validate(x, y)) {
             return null;
@@ -45,15 +60,25 @@ public class Board {
         return blocks[x][y];
     }
 
+    /**
+     * Get board.
+     * @return board
+     */
     public Block[][] getBlocks() {
         return blocks;
     }
 
+    /**
+     * Set board.
+     */
     public void setBlocks(Block[][] blocks) {
         this.blocks = blocks;
     }
 
-    public void printBoard() {
+    /**
+     * Print board.
+     */
+    public void printBlocks() {
         for (int i = 0; i < HEIGHT; i++) {
             System.out.print("|");
             for (int j = 0; j < WIDTH; j++) {
