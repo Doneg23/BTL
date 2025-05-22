@@ -54,6 +54,3 @@ Các loại *Enemy* sẽ có tốc độ và cách thức hoạt động khác n
 
 ![](src/resources/uml/uml1.png)
 ![](src/resources/uml/uml2.png)
-
-
->>>>>>> c227804 (Commit dau tien sau khi nham repo)
