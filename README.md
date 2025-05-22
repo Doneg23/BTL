@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-Write README.md
-=======
 # Bài tập lớn OOP - Bomberman Game
 
 Bài tập lớn môn Lập trình Hướng đối tượng
