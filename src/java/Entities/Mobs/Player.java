@@ -12,6 +12,7 @@ import Key.KeyInput;
 import Level.Coordinates;
 import Main.Board;
 import Main.Game;
+import Utils.SoundPlayer;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -70,6 +71,7 @@ public class Player extends Mob {
     protected void placeBomb(int x, int y) {
         Bomb b = new Bomb(x, y, board);
         board.addBomb(b);
+        SoundPlayer.playSound("src/resources/sounds/putbomb.wav");
     }
 
     private void clearBombs() {
@@ -90,8 +92,10 @@ public class Player extends Mob {
         if(!isAlive) return;
         isAlive = false;
         board.addLives(-1);
-        Message msg = new Message("-1 LIVE", getXMessage(), getYMessage(), 2, Color.white, 14);
+        Message msg = new Message("-1 LIVE", getXMessage(), getYMessage(), 2, Color.white, 18);
         board.addMessage(msg);
+        SoundPlayer.playSound("src/resources/sounds/die.wav");
+
     }
 
     @Override
@@ -99,8 +103,12 @@ public class Player extends Mob {
         if(timeAfter > 0) --timeAfter;
         else {
             if(bombs.isEmpty()) {
-                if(board.getLives() == 0) board.endGame();
-                else board.restartLevel();
+                if(board.getLives() == 0) {
+                    board.endGame();
+                    SoundPlayer.playSound("src/resources/sounds/game_over.wav");
+                } else {
+                    board.restartLevel();
+                }
             }
         }
     }
@@ -142,10 +150,12 @@ public class Player extends Mob {
     public boolean collide(Entity e) {
         if(e instanceof DirectionalExplosion) {
             kill();
+            SoundPlayer.playSound("src/resources/sounds/dead2.wav");
             return false;
         }
         if(e instanceof Enemy) {
             kill();
+            SoundPlayer.playSound("src/resources/sounds/dead1.wav");
             return true;
         }
         return true;
@@ -161,7 +171,10 @@ public class Player extends Mob {
         PU p;
         for (int i = 0; i < powerUps.size(); i++) {
             p = powerUps.get(i);
-            if(!p.isActive()) powerUps.remove(i);
+            if(!p.isActive()) {
+                powerUps.remove(i);
+                SoundPlayer.playSound("src/resources/sounds/getitem.wav");
+            }
         }
     }
 

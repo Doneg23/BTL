@@ -18,7 +18,10 @@ public class Portal extends Tile {
         if(e instanceof Player) {
             if(!board.detectNoEnemies()) return false;
             if(e.getXTile() == getX() && e.getYTile() == getY()) {
-                if(board.detectNoEnemies()) board.nextLevel();
+                if(board.detectNoEnemies()) {
+                    Utils.SoundPlayer.playSound("src/resources/sounds/win.wav");
+                    board.nextLevel();
+                }
             }
             return true;
         }

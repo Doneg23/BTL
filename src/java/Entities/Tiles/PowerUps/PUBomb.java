@@ -13,6 +13,7 @@ public class PUBomb extends PU {
     @Override
     public boolean collide(Entity e) {
         if(e instanceof Player) {
+            Utils.SoundPlayer.playSound("src/resources/sounds/getitem.wav");
             ((Player) e).addPowerup(this);
             remove();
             return true;

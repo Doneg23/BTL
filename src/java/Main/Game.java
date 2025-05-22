@@ -4,6 +4,7 @@ import Exceptions.BBMException;
 import Key.KeyInput;
 import Graphics.Screen;
 import GUI.Frame;
+import Utils.SoundPlayer;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -42,6 +43,7 @@ public class Game extends Canvas {
         keyInput = new KeyInput();
         board = new Board(this, keyInput, screen);
         addKeyListener(keyInput);
+        SoundPlayer.loopSound("src/resources/sounds/audiogame.wav");
     }
 
     private void renderGame() {

@@ -19,6 +19,7 @@ import Level.FileLevel;
 import Level.Level;
 import Key.KeyInput;
 import Exceptions.LevelLoadingException;
+import Utils.SoundPlayer;
 
 public class Board implements Render {
     protected Level level;
@@ -75,6 +76,7 @@ public class Board implements Render {
     public void newGame() {
         resetProperties();
         changeLevel(1);
+
     }
 
     private void resetProperties() {
@@ -87,10 +89,12 @@ public class Board implements Render {
     }
 
     public void restartLevel() {
+        SoundPlayer.playSound("src/resources/sounds/win.wav");
         changeLevel(level.getLevel());
     }
 
     public void nextLevel() {
+        //SoundPlayer.playSound("src/resources/sounds/win.wav");
         changeLevel(level.getLevel() + 1);
     }
 

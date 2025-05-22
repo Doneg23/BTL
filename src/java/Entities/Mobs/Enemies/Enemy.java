@@ -11,6 +11,7 @@ import Main.Board;
 import Graphics.Sprite;
 import Graphics.Screen;
 import Main.Game;
+import Utils.SoundPlayer;
 
 import java.awt.*;
 
@@ -115,6 +116,7 @@ public abstract class Enemy extends Mob {
     public void kill() {
         if(!isAlive) return;
         isAlive = false;
+        SoundPlayer.playSound("src/resources/sounds/clear.wav");
         board.addPoints(points);
         Message msg = new Message("+" + points, getXMessage(), getYMessage(), 2, Color.white, 14);
         board.addMessage(msg);
